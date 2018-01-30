@@ -1,4 +1,4 @@
-# IoT-Product
+# IoT-Product #KANYE2020
 Embedded Systems Coursework 1
 ## Product Overview
 Detects air quality characteristics such as humidity, air velocity and air tempreture. Relays this information and turns on/off dehumidifier, detect if your house is drafty 
@@ -21,4 +21,8 @@ Recorder, blow into it and it makes sounds and stuff
 * ADS1115
 * other stuff
 ## Team
+* Mikhail
+* Rajan
+* Patrick (apparently)
+* Eliot (apparently)
 ## Website and Contact
