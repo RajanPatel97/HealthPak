@@ -5,5 +5,39 @@ i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
 i2c.writeto(64, bytearray([0xF5]))
 time.sleep_ms(100)
 data = i2c.readfrom(64,2)
-read = int.from_bytes(data, 'big')
-print(read)
+humid= int.from_bytes(data, 'big')
+print(humid)
+
+i2c.writeto(64, bytearray([0xF3]))
+time.sleep_ms(100)
+data = i2c.readfrom(64,2)
+temp = int.from_bytes(data, 'big')
+print(temp)
+
+book = {}
+
+book['r1'] = {
+    'humidity': humid,
+    'temperature': temp,
+}
+
+import ujson
+
+payload = ujson.dumps(book)
+
+import network
+ap_if = network.WLAN(network.AP_IF)
+ap_if.active(False)
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect('EEERover', 'exhibition')
+
+while (not sta_if.isconnected()):
+    pass
+
+print('connected')
+
+from umqtt.simple import MQTTClient
+
+client = MQTTClient(CLIENT_ID,'192.168.0.10')
+
