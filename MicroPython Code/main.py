@@ -39,5 +39,7 @@ print('connected')
 
 from umqtt.simple import MQTTClient
 
-client = MQTTClient(CLIENT_ID,'192.168.0.10')
+client = MQTTClient('machine.unique_id()','192.168.0.10')
+client.connect()
+client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
 
