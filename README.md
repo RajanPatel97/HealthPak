@@ -5,10 +5,6 @@ Embedded Systems Coursework 1
 ## Product Overview
 Detects air quality characteristics such as humidity, air velocity and air tempreture. Relays this information and turns on/off dehumidifier, detect if your house is drafty 
 
-IN BOLD OR
-
-Recorder, blow into it and it makes sounds and stuff 
-
 ## Instructions
 1. Turn on
 2. ????
@@ -18,9 +14,10 @@ Recorder, blow into it and it makes sounds and stuff
 ### Library
 * IFFFT Smart Plug
 ## Hardware
-* Omron D6F-V03A1
+* New sensor
 * ESP82something
 * ADS1115
+* CS 811
 * other stuff
 ## Team
 * Mikhail
@@ -28,3 +25,5 @@ Recorder, blow into it and it makes sounds and stuff
 * Patrick (apparently)
 * Eliot (apparently)
 ## Website and Contact
+[airee](https://airee.carrd.co/)
+[Email us](md5315@ic.ac.uk)
