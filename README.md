@@ -1,6 +1,6 @@
 # IoT-Product #KANYE2020
 Embedded Systems Coursework 1
-[airee](airee.carrd.co)
+[airee](https://airee.carrd.co/)
 
 ## Product Overview
 Detects air quality characteristics such as humidity, air velocity and air tempreture. Relays this information and turns on/off dehumidifier, detect if your house is drafty 
