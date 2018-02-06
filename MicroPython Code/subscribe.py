@@ -12,11 +12,15 @@ def on_connect(client, userdata, flags, rc):
     # reconnect then subscriptions will be renewed.
     client.subscribe("esys/KANYE2020/#")
 
+
+
 def on_message(client, userdata, msg):
      parsed = json.loads(msg.payload)
      list1.append(parsed["Sensor Readings"]["T"]) 
      list2.append(parsed["Sensor Readings"]["H"])
-
+     # Writing JSON data
+     with open('data.json', 'w') as f:
+      json.dump(list1, f)
      
      plt.plot(list1)
      plt.ylabel('Temperature(C)')
@@ -25,7 +29,6 @@ def on_message(client, userdata, msg):
      
      #print(msg.topic+" "+str(msg.payload))
      #print(str(json.dumps(list)))
-
 
 
 client = mqtt.Client()
