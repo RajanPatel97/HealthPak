@@ -21,7 +21,10 @@ client.connect()
 from machine import Pin, I2C
 i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
 
+Readings = {}
+
 while True:
+
     i2c.writeto(64, bytearray([0xF5]))
     time.sleep_ms(20)
     data = i2c.readfrom(64,2)
@@ -37,11 +40,10 @@ while True:
     print("Temperature(C):",  temp)
     print("Humidity(%):", humid)
     
-    book = {}
-    book['Sensor Readings'] = {
-        'Temperature(C)': temp,
-        'Humidity(%)': humid,        
+    Readings['Sensor Readings'] = {
+        'T': temp,
+        'H': humid,        
     }
-    payload = ujson.dumps(book)
+    payload = ujson.dumps(Readings)
     client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
-    time.sleep_ms(500)
+    time.sleep(5)
