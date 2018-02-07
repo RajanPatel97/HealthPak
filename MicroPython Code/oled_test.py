@@ -1,23 +1,11 @@
-from machine import Pin, I2C
-i2c = I2C(scl=Pin(5), sda=Pin(4))
+import machine
+import ssd1306
+spi = machine.SPI(1, baudrate=8000000, polarity=0, phase=0)
+oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machine.Pin(16))
 
-from ssd1306 import SSD1306_I2C
-oled = SSD1306_I2C(128, 64, i2c)
 
-oled.fill(1)
-oled.show()
+
 oled.fill(0)
-oled.show()
-
-
-oled.pixel(0, 0, 1)
-oled.show()
-oled.pixel(127, 63, 1)
-oled.show()
-
 oled.text('Hello', 0, 0)
-oled.text(‘World’, 0, 10)
+oled.text('World', 0, 10)
 oled.show()
-
-oled.invert(True)
-oled.invert(False)
