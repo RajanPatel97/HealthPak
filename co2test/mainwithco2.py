@@ -64,7 +64,6 @@ while True:
     time.sleep(1)
     while True:
         if s.data_ready():
-            print('eCO2: %d ppm, TVOC: %d ppb' % (s.eCO2, s.tVOC))
             co2 = s.eCO2
             tvoc = s.tVOC
             time.sleep(1)
