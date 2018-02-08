@@ -1,6 +1,8 @@
 import ujson
 import time
 import network
+import ssd1306
+import machine
 
 #Connect to WIFI
 ap_if = network.WLAN(network.AP_IF)
@@ -20,8 +22,15 @@ client.connect()
 #Set up I2C Pins
 from machine import Pin, I2C
 i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
+spi = machine.SPI(1, baudrate=8000000, polarity=0, phase=0)
+oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machine.Pin(16))
 
 Readings = {}
+
+oled.fill(0)
+oled.text('temp', 0, 0)
+oled.text('humid', 0, 10)
+oled.show()
 
 while True:
 
