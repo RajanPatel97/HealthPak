@@ -3,6 +3,7 @@ import json
 import time
 import matplotlib.pyplot as plt
 
+
 list1 = []
 list2 = []
 
@@ -16,16 +17,16 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
      parsed = json.loads(msg.payload)
-     list1.append(parsed["Sensor Readings"]["T"]) 
-     list2.append(parsed["Sensor Readings"]["H"])
+     list1.append(parsed["Sensor Readings"]) 
+     list2.append(parsed["Sensor Readings"])
      # Writing JSON data
-     with open('data.json', 'w') as f:
+     with open('C:/Users/User/Documents/IoT_EE3/measures.json', 'w') as f:
       json.dump(list1, f)
      
-     plt.plot(list1)
-     plt.ylabel('Temperature(C)')
-     plt.xlabel('Readings')
-     plt.show()
+     #plt.plot(list1)
+     #plt.ylabel('Temperature(C)')
+     #plt.xlabel('Readings')
+     #plt.show()
      
      #print(msg.topic+" "+str(msg.payload))
      #print(str(json.dumps(list)))
