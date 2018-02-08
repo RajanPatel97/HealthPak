@@ -30,7 +30,7 @@ oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machin
 
 Readings = {}
 
-n = 0
+#n = 0
 
 while True:
 
@@ -47,21 +47,21 @@ while True:
     tempcode = int.from_bytes(data, 'big')
     temp = float(((175.72*tempcode)/65536) - 46.85)
     
-    co2data = open('co2.txt') 
-    co2code = co2data.read().split("\n") 
-    tvocdata = open('tvoc.txt') 
-    tvoccode = tvocdata.read().split("\n") 
+  #  co2data = open('co2.txt') 
+  #  co2code = co2data.read().split("\n") 
+  #  tvocdata = open('tvoc.txt') 
+  #  tvoccode = tvocdata.read().split("\n") 
 
-    if n == 100:
-        n = 0
-    n = n + 1
-    co2 = co2code[n]
-    tvoc = co2code[n]
+   # if n == 100:
+   #     n = 0
+   # n = n + 1
+   # co2 = co2code[n]
+   # tvoc = co2code[n]
 
     humidity = str(humid)
     temperature = str(temp)
-    co2disp = str(co2)
-    tvocdisp = str(tvoc)
+   # co2disp = str(co2)
+   # tvocdisp = str(tvoc)
     
     
 
@@ -70,8 +70,8 @@ while True:
     oled.text(temperature, 70, 0)
     oled.text('Hum (%)', 0, 10)
     oled.text(humidity, 70, 10)
-    oled.text('CO2(ppm)' , 0, 20)
-    oled.text(co2disp, 70, 20)
+   # oled.text('CO2(ppm)' , 0, 20)
+   # oled.text(co2disp, 70, 20)
     oled.show()
     
     
@@ -85,8 +85,8 @@ while True:
         'Time': timestamp,
         'Temperature': temp,
         'Humidity': humid,
-        'CO2': co2,
-        'tVOC': tvoc,
+      #  'CO2': co2,
+      #  'tVOC': tvoc,
     }
     payload = ujson.dumps(Readings)
     client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
