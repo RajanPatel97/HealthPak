@@ -1,8 +1,11 @@
 import ujson
 import time
+import utime
 import network
 import ssd1306
 import machine
+
+import framebuf
 
 #Connect to WIFI
 ap_if = network.WLAN(network.AP_IF)
@@ -32,6 +35,10 @@ oled.text('temp', 0, 0)
 oled.text('humid', 0, 10)
 oled.show()
 
+
+
+
+
 while True:
 
     i2c.writeto(64, bytearray([0xF5]))
@@ -46,10 +53,11 @@ while True:
     tempcode = int.from_bytes(data, 'big')
     temp = float(((175.72*tempcode)/65536) - 46.85)
 
-    timestamp = time.strftime('%H:%M:%S')
+    timestamp = utime.localtime()
 
     print("Temperature(C):",  temp)
     print("Humidity(%):", humid)
+    print("Time(s):", timestamp)
     
     Readings['Sensor Readings'] = {
         'Time': timestamp,
@@ -59,3 +67,5 @@ while True:
     payload = ujson.dumps(Readings)
     client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
     time.sleep(5)
+
+
