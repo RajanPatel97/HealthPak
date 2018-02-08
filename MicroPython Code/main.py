@@ -46,12 +46,15 @@ while True:
     tempcode = int.from_bytes(data, 'big')
     temp = float(((175.72*tempcode)/65536) - 46.85)
 
+    timestamp = time.strftime('%H:%M:%S')
+
     print("Temperature(C):",  temp)
     print("Humidity(%):", humid)
     
     Readings['Sensor Readings'] = {
-        'T': temp,
-        'H': humid,        
+        'Time': timestamp,
+        'Temperature': temp,
+        'Humidity': humid,        
     }
     payload = ujson.dumps(Readings)
     client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
