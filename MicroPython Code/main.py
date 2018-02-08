@@ -5,7 +5,7 @@ import network
 import ssd1306
 import machine
 
-import framebuf
+
 
 #Connect to WIFI
 ap_if = network.WLAN(network.AP_IF)
@@ -30,13 +30,6 @@ oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machin
 
 Readings = {}
 
-oled.fill(0)
-oled.text('temp', 0, 0)
-oled.text('humid', 0, 10)
-oled.show()
-
-
-
 
 
 while True:
@@ -47,12 +40,25 @@ while True:
     humidcode= int.from_bytes(data, 'big')
     humid = float(((125*humidcode)/65536) - 6)
 
+
     i2c.writeto(64, bytearray([0xF3]))
     time.sleep_ms(20)
     data = i2c.readfrom(64,2)
     tempcode = int.from_bytes(data, 'big')
     temp = float(((175.72*tempcode)/65536) - 46.85)
 
+    humidity = str(humid)
+    temperature = str(temp)
+
+    oled.fill(0)
+    oled.text('Temp (C)', 0, 0)
+    oled.text(temperature, 70, 0)
+    oled.text('Hum (%)', 0, 10)
+    oled.text(humidity, 70, 10)
+    oled.text('CO2(ppm)' , 0, 20)
+    oled.show()
+    
+    
     timestamp = utime.localtime()
 
     print("Temperature(C):",  temp)
