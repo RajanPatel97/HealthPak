@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+<canvas id="myChart" width="740" height="200"></canvas>
+
+<script src="http://localhost:8000/Chart.js"></script>
+<script src="http://localhost:8000/jquery.js"></script>
+
+  <script>
+   $.getJSON("http://localhost:8000/measures.json", function (json) {
+  // will generate array with ['Monday', 'Tuesday', 'Wednesday']
+  var labels = json.map(function(item) {
+    return item.time;
+  });
+
+  var data = json.map(function(item) {
+    return item.temperature;
+  });
+
+  new Chart(document.getElementById("myChart"),{
+    type: 'line',
+    data: {
+    labels: labels,
+    datasets: [
+    {
+      label: "Temperature",
+      fillColor: "rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
+      highlightFill: "rgba(220,220,220,0.75)",
+      highlightStroke: "rgba(220,220,220,1)",
+      data: data,
+    }
+    ]
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
