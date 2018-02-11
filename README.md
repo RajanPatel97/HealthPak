@@ -32,6 +32,7 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 * ESP8266 Microcontroller
 * Si7021-A20 Temperature and Humidity Sensor 
 * TMP007 Infrared Thermopile Sensor
+* LIS3DH Accelerometer
 * Cooler
 ## Team
 * Mikhail Demtchenko
