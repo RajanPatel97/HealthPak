@@ -59,7 +59,7 @@ while True:
 
     #co2code = f.read().split("\n") 
     
-    
+    #only works if the sensor is attached
     s = CCS811.CCS811()
     time.sleep(1)
     while True:
