@@ -9,7 +9,7 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 ![Coolerbox](https://github.com/RajanPatel97/IoT-Product/blob/master/Coolerbox.jpg)
 
 ## Instructions
-1. Use ampy to load the firmware onto the board: sudo ampy -port COM3 -b 115200 put main.py 
+1. Use ampy to load the firmware onto the board: `sudo ampy -port COM3 -b 115200 put main.py` 
 *The put command loads the program onto the board but doesn't run it*
 
 2. Connect your computer to the appropriate broker's network, then intialise the board and turn on the sensor with: python main.py (needs some changes)
