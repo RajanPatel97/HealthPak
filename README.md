@@ -5,6 +5,9 @@ Embedded Systems Coursework 1
 ## Product Overview
 Smart cold box that monitors the enviroment inside a cold box allowing safe and intelligent storage and transport of temperature and vibration sensitive goods such as medicines, organs, foods and others. The cold box measures the temperature and humidity of the box, surface temperature of the good and if it has been subject to vibration. The cold box will feed back live characteristics and it will alert you if the thresholds have been exceeded and for how long.
 
+## System Diagram
+![Coolerbox](https://github.com/RajanPatel97/IoT-Product/blob/master/Coolerbox.jpg)
+
 ## Instructions
 1. Use ampy to load the firmware onto the board: sudo ampy -port COM3 -b 115200 put main.py 
 *The put command loads the program onto the board but doesn't run it*
