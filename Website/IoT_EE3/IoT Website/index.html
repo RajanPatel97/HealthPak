@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IoT: AirEE</title>
+    <title>IoT: ColdBox</title>
     <head>
 
 
@@ -36,7 +36,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">MonitAir</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">ColdBox</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,6 +55,9 @@
               <a class="nav-link js-scroll-trigger" href="#graphs">Graphs</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#app">App</a>
+              </li>
+            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
           </ul>
@@ -67,12 +70,12 @@
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <h1 class="text-uppercase">
-              <strong>Internet of things air monitoring device</strong>
+              <strong>The smart cold box</strong>
             </h1>
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">The quality of the air we breath is a factor that often isn't given enough attention. It greatly affects our health and well-being. We therefore developed technology that makes this information available to any smart device.</p>
+            <p class="text-faded mb-5">When shipping sensitive goods such as medicines, organs or even food, we need to make sure that they are transported in the optimal conditions. ColdBox is a tool for suppliers and consumers to accurately monitor the transport environment of these goods.</p>
             <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
           </div>
         </div>
@@ -85,7 +88,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">We've got what you need!</h2>
             <hr class="light my-4">
-            <p class="text-faded2 mb-4">By continoulsy measuring air parameters using a collection of sensors, our complete air monitoring device shares data online, allowing the user to easily access this information at any given time.</p>
+            <p class="text-faded2 mb-4">By continoulsy measuring ambient conditions using a collection of sensors, our complete cold box monitoring device shares data online, allowing the user to easily access this information at any given time and warning them if anything goes wrong.</p>
             <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
           </div>
         </div>
@@ -105,16 +108,16 @@
         <div class="row">
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-leaf text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Air quality</h3>
-              <p class="text-muted mb-0">MonitAir allows you to always check how fresh the air around you is.</p>
+              <i class="fa fa-4x fa-thermometer text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Temperature</h3>
+              <p class="text-muted mb-0">Ambient and surface temperature sensors combined with a humidity sensor ensures perfect transport conditions.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box mt-5 mx-auto">
-              <i class="fa fa-4x fa-fire text-primary mb-3 sr-icons"></i>
-              <h3 class="mb-3">Temperature</h3>
-              <p class="text-muted mb-0">Set your room to an optimal climate using temperature sensing technology.</p>
+              <i class="fa fa-4x fa-dashboard text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Vibrations</h3>
+              <p class="text-muted mb-0">An accelerometer tracks the vibrations of the goods, allowing the device to send out a warning when certain limits are exceeded.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
@@ -139,7 +142,7 @@
       <div class="container-fluid p-0">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">The team behind MonitAir</h2>
+            <h2 class="section-heading">The team behind ColdBox</h2>
             <hr class="my-4">
           </div>
         </div>
@@ -160,8 +163,8 @@
             </a>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <a class="portfolio-box" href="img/team/patty.jpeg">
-              <img class="img-fluid" src="img/team/patty.jpeg" alt="">
+            <a class="portfolio-box" href="img/team/patty.jpg">
+              <img class="img-fluid" src="img/team/patty.jpg" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-name">
@@ -229,28 +232,56 @@
           <script src="http://localhost:8000/jquery.js"></script>
           <script>
    $.getJSON("http://localhost:8000/measures.json", function (json) {
-  var labels = json.map(function(item) {
-    return item.time;
+  var temp = json.map(function(item) {
+    return item.Temperature;
   });
 
-  var data = json.map(function(item) {
-    return item.temperature;
+  var humid = json.map(function(item) {
+    return item.Humidity;
+  });
+
+  var timestamp = json.map(function(item) {
+    return item.Time;
   });
 
   new Chart(document.getElementById("myChart"),{
     type: 'line',
     data: {
-    labels: labels,
+    labels: timestamp,
     datasets: [
     {
-      label: "Temperature",
-      fillColor: "#F05F40",
+      label: "Temperature(ºC)",
+      fillColor: "#rgba(220,220,220,0.5)",
       strokeColor: "rgba(220,220,220,0.8)",
       highlightFill: "rgba(220,220,220,0.75)",
       highlightStroke: "rgba(220,220,220,1)",
-      data: data,
-    }
+      data: temp,
+    },
+    {
+      label: "Humidity(%)",
+      fillColor: "rgba(151,187,205,0.5)",
+      strokeColor: "rgba(151,187,205,0.8)",
+      highlightFill: "rgba(151,187,205,0.75)",
+      highlightStroke: "rgba(151,187,205,1)",
+      data: humid
+  },{
+    label: "Surface Temperature(ºC)",
+      fillColor: "#rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
+      highlightFill: "rgba(220,220,220,0.75)",
+      highlightStroke: "rgba(220,220,220,1)",
+      data: temp,
+  }
     ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks:{
+            autoSkip: false
+          }
+        }]
+      }
     }
   });
 });
@@ -260,6 +291,17 @@
           </div>
 
     </section>
+
+    <section id="app">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading">Stay connected with the ColdBox App</h2>
+              <hr class="my-4">
+            </div>
+          </div>
+        <div class= "app_page">
+        </div>
+      </section>
 
 
     <section id="contact">
