@@ -9,21 +9,21 @@ def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("esys/KANYE2020/#")
+    client.subscribe("sensor/temp")
 
 
 def on_message(client, userdata, msg):
-     parsed = json.loads(msg.payload)
-     list1.append(parsed["Sensor Readings"]) 
+    # parsed = json.loads(msg.payload)
+    # list1.append(parsed["Sensor Readings"]) 
      # Writing JSON data
-     with open('C:/Users/User/Documents/IoT_EE3/measures.json', 'w') as f:
-      json.dump(list1, f)
+     #with open('C:/Users/User/Documents/IoT_EE3/measures.json', 'w') as f:
+      #json.dump(list1, f)
      
      #plt.plot(list1)
      #plt.ylabel('Temperature(C)')
      #plt.xlabel('Readings')
      #plt.show()
-     #print(msg.topic+" "+str(msg.payload))
+     print(msg.topic+" "+str(msg.payload))
      #print(str(json.dumps(list)))
 
 
