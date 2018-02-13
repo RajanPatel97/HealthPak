@@ -75,8 +75,8 @@
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">When shipping sensitive goods such as medicines, organs or even food, we need to make sure that they are transported in the optimal conditions. ColdBox is a tool for suppliers and consumers to accurately monitor the transport environment of these goods.</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+            <p class="text-faded mb-5">ColdBox is a tool for suppliers and consumers to accurately monitor the transport environment of sensitive goods.</p>
+            <a class="btn btn-primary btn-xl portfolio-link" href="#portfolioModal2" data-toggle="modal">Why ColdBox?</a>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
             <h2 class="section-heading text-white">We've got what you need!</h2>
             <hr class="light my-4">
             <p class="text-faded2 mb-4">By continoulsy measuring ambient conditions using a collection of sensors, our complete cold box monitoring device shares data online, allowing the user to easily access this information at any given time and warning them if anything goes wrong.</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+            <a class="btn btn-light btn-xl portfolio-link" href="#portfolioModal1" data-toggle="modal">More details</a>
           </div>
         </div>
       </div>
@@ -158,6 +158,10 @@
                   <div class="project-category text-faded2">
                     Software developer
                   </div>
+                  <p></p>
+                  <div class="text-faded3">
+                      Responsibilities include writing Micropython code for data measurement and transmission as well as overall connectivity of the device.
+                    </div>
                 </div>
               </div>
             </a>
@@ -171,8 +175,12 @@
                     Patrick Reich
                   </div>
                   <div class="project-category text-faded2">
-                    Hardware research
+                    Hardware development
                   </div>
+                  <p></p>
+                  <div class="text-faded3">
+                      Responsibilities include circuit management and User interface Software and Hardware development.
+                    </div>
                 </div>
               </div>
             </a>
@@ -188,6 +196,10 @@
                   <div class="project-category text-faded2">
                     Web developer
                   </div>
+                  <p></p>
+                  <div class="text-faded3">
+                      Responsibilities include webpage development and communication between broker and website as well as online marketing.
+                    </div>
                 </div>
               </div>
             </a>
@@ -201,8 +213,12 @@
                     Mikhail Demtchenko
                   </div>
                   <div class="project-category text-faded2">
-                    Human resources
+                    Research
                   </div>
+                  <p></p>
+                  <div class="text-faded3">
+                      Responsibilities include hardware and software research, hardware acquisition and support for other team members.
+                    </div>
                 </div>
               </div>
             </a>
@@ -218,7 +234,9 @@
           <div class="col-lg-12 text-center">
             <h2 class="section-heading">Check out our self updating graphs</h2>
             <hr class="my-4">
-            <canvas id="myChart" width="200" height="80"></canvas>
+            <canvas id="myChart1" width="200" height="50"></canvas>
+            <canvas id="myChart2" width="200" height="50"></canvas>
+            <canvas id="myChart3" width="200" height="50"></canvas>
           </div>
         </div>
 
@@ -226,8 +244,8 @@
 
     </section>
 
-    <section id="line-chart">
-       <div class="row">
+    <section id='line-chart'>
+
           <script src="http://localhost:8000/Chart.js"></script>
           <script src="http://localhost:8000/jquery.js"></script>
           <script>
@@ -240,11 +258,15 @@
     return item.Humidity;
   });
 
+  var stemp = json.map(function(item) {
+    return item.Stemp;
+  });
+
   var timestamp = json.map(function(item) {
     return item.Time;
   });
 
-  new Chart(document.getElementById("myChart"),{
+  new Chart(document.getElementById("myChart1"),{
     type: 'line',
     data: {
     labels: timestamp,
@@ -258,39 +280,38 @@
       data: temp,
     },
     {
-      label: "Humidity(%)",
+      label: "Surface temperature (ºC)",
       fillColor: "rgba(151,187,205,0.5)",
       strokeColor: "rgba(151,187,205,0.8)",
       highlightFill: "rgba(151,187,205,0.75)",
       highlightStroke: "rgba(151,187,205,1)",
-      data: humid
-  },{
-    label: "Surface Temperature(ºC)",
+      data: stemp,
+  }
+    ]
+    }
+  });
+
+  new Chart(document.getElementById("myChart2"),{
+    type: 'line',
+    data: {
+    labels: timestamp,
+    datasets: [
+    {
+      label: "Humidity (%)",
       fillColor: "#rgba(220,220,220,0.5)",
       strokeColor: "rgba(220,220,220,0.8)",
       highlightFill: "rgba(220,220,220,0.75)",
       highlightStroke: "rgba(220,220,220,1)",
-      data: temp,
-  }
-    ]
+      data: humid,
     },
-    options: {
-      scales: {
-        xAxes: [{
-          ticks:{
-            autoSkip: false
-          }
-        }]
-      }
+    ]
     }
   });
 });
 
 </script>
-            
-          </div>
 
-    </section>
+</section>
 
     <section id="app">
         <div class="row">
@@ -328,6 +349,81 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="modal-body">
+                                <!-- Project Details Go Here -->
+                                <h2>More details</h2>
+                                <p class="item-intro text-muted">What's inside of ColdBox?</p>
+                                <img class="img-fluid d-block mx-auto" src="img/sys_diag.jpg" alt="">
+                                <h2>General information</h2>
+                                <p>ColdBox uses 3 different sensors to continuously measure the temperature, humidity and vibrations inside of the smart cooling box. The sensors communicate with a WiFi chip in order to transmit the data they have collected to a Broker using Message Queuing Telemetry Transport (MQTT) communication. Any device that requires data from the sensors can subscribe to that Broker through a certain channel making it available to any online interface. As well as our website and potential App, we also have a User Interface consisting of a Light Emitting Diode and a Buzzer subscribing to the Broker through its own WiFi chip. This UI provides an easier and quicker way to monitor ColdBox's parameters as it changes color and makes sound when anything goes wrong.</p>
+                                <h2>Technical specifications</h2>
+                                <p>
+                                  <h3>ESP8266</h3>
+                                </p>
+                                <p>The ESP8266 is our WiFi chip. The board on which it sits also has some flash memory, an antenna and all the necessary circuitry for powering and USB interfacing. It's purpose in our design is to send out measured data to the Broker to make it available online.</p>
+                                <p>
+                                    <h3>TMP007</h3>
+                                </p>
+                                <p>The TMP007 is a surface temperature sensor. We use it to see if the temperature of the stored goods is adequate, regardless of the ambient temperature of the box.</p>
+                                <p>
+                                    <h3>Si7021</h3>
+                                </p>
+                                <p>The Si7021 is a temperature and humidity sensor. It measures whether the environment within the cooling box is appropriate.</p>
+                                <p>
+                                    <h3>LIS3DH</h3>
+                                </p>
+                                <p>The LIS3DH is an accelerometer. Since some goods are fragile or sensitive to sudden movements, our design contains a sensor capable of measuring acceleration.</p>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal 2 -->
+     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="modal-body">
+                                <!-- Project Details Go Here -->
+                                <h2>Motivation</h2>
+                                <p class="item-intro text-muted">Why is ColdBox needed?</p>
+                                <img class="img-fluid d-block mx-auto" src="img/coolbox.jpg" alt="">
+                                <p>With the technological advances in goods shipment and delivery, we are now able to track the location of our purchases at any given time. In the case of sensitive goods that are stored in refrigerators such as medicine, organs or even some foods, however, the manufacturer, retailer or consumer might be interested in the conditions in which these goods were stored during transportation. Vaccines or organs, for instance, require an ambient temperature of 2 to 8ºC. If the cooling box's temperature is outside these bounds, the vaccine loses effectiveness. This can cause the consumer to lose trust in the product and cost a lot of money to the manufacturer. CoolBox measures this data and makes it available for anyone involved with the shipped goods enhancing customer relationships, allowing retailers to discard any wrongly stored goods and providing intel to manufacturers on any reoccurring storage problems.</p>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
