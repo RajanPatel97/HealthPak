@@ -1,93 +1,94 @@
-import ujson
-import time
-import utime
-import network
-import ssd1306
 import machine
+import time
 
+#same code for piezo buzzer - remember both connect to power on one side not ground
 
+p12 = machine.Pin(12)
+p13 = machine.Pin(13)
+p14 = machine.Pin(14)
+p15 = machine.Pin(15)
 
-#Connect to WIFI
-ap_if = network.WLAN(network.AP_IF)
-ap_if.active(False)
-sta_if = network.WLAN(network.STA_IF)
-sta_if.active(True)
-sta_if.connect('EEERover', 'exhibition')
-while (not sta_if.isconnected()):
-    pass
-print('connected')
+pwm12 = machine.PWM(p12)
+pwm12.freq(500)
+pwm12.duty(512)
 
-#Connect to MQTT Broker
-from umqtt.simple import MQTTClient
-client = MQTTClient('machine.unique_id()','192.168.0.10')
-client.connect()
+pwm13 = machine.PWM(p13)
+pwm13.freq(500)
+pwm13.duty(0)
 
-#Set up I2C Pins
-from machine import Pin, I2C
-i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
-spi = machine.SPI(1, baudrate=8000000, polarity=0, phase=0)
-oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machine.Pin(16))
-
-Readings = {}
-
-#n = 0
+pwm14 = machine.PWM(p14)
+pwm14.freq(500)
+pwm14.duty(0)
 
 while True:
-
-    i2c.writeto(64, bytearray([0xF5]))
-    time.sleep_ms(20)
-    data = i2c.readfrom(64,2)
-    humidcode= int.from_bytes(data, 'big')
-    humid = float(((125*humidcode)/65536) - 6)
-
-
-    i2c.writeto(64, bytearray([0xF3]))
-    time.sleep_ms(20)
-    data = i2c.readfrom(64,2)
-    tempcode = int.from_bytes(data, 'big')
-    temp = float(((175.72*tempcode)/65536) - 46.85)
     
-  #  co2data = open('co2.txt') 
-  #  co2code = co2data.read().split("\n") 
-  #  tvocdata = open('tvoc.txt') 
-  #  tvoccode = tvocdata.read().split("\n") 
+    pwm15 = machine.PWM(p15)
+    pwm15.freq(587) 
+    pwm15.duty(512)
+    pwm12.duty(512)
+    time.sleep(0.4)
+    
+    pwm15.freq(698)
+    pwm12.duty(0)
+    pwm13.duty(0)
+    time.sleep(0.15)
+    
+    pwm15.freq(880)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
+    
+    pwm15.freq(698)
+    pwm12.duty(0)
+    pwm13.duty(512)
+    time.sleep(0.15)
+    
+    pwm15.freq(784)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.4)
+    
+    pwm15.freq(880)
+    pwm12.duty(0)
+    pwm13.duty(512)
+    time.sleep(0.15)
+    
+    pwm15.freq(784)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
 
-   # if n == 100:
-   #     n = 0
-   # n = n + 1
-   # co2 = co2code[n]
-   # tvoc = co2code[n]
+    pwm15.freq(698)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
 
-    humidity = str(humid)
-    temperature = str(temp)
-   # co2disp = str(co2)
-   # tvocdisp = str(tvoc)
-    
-    
+    pwm15.freq(659)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.4)
 
-    oled.fill(0)
-    oled.text('Temp (C)', 0, 0)
-    oled.text(temperature, 70, 0)
-    oled.text('Hum (%)', 0, 10)
-    oled.text(humidity, 70, 10)
-   # oled.text('CO2(ppm)' , 0, 20)
-   # oled.text(co2disp, 70, 20)
-    oled.show()
-    
-    
-    timestamp = utime.localtime()
+    pwm15.freq(587)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
 
-    print("Temperature(C):",  temp)
-    print("Humidity(%):", humid)
-    print("Time(s):", timestamp)
+    pwm15.freq(523)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
+
+    pwm15.freq(440)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.15)
+
+    pwm15.freq(587)
+    pwm12.duty(512)
+    pwm13.duty(0)
+    time.sleep(0.4)
+
+ 
     
-    Readings['Sensor Readings'] = {
-        'Time': timestamp,
-        'Temperature': temp,
-        'Humidity': humid,
-      #  'CO2': co2,
-      #  'tVOC': tvoc,
-    }
-    payload = ujson.dumps(Readings)
-    client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
-    time.sleep(5)
+ 
+    
