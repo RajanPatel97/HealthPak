@@ -97,7 +97,7 @@ def main(server="192.168.0.10"):
 
     c.disconnect()
 
-#same code for piezo buzzer - remember both connect to power on one side not ground
+#startuptune guest dj Big Patrick
 pwm12.freq(500)
 pwm12.duty(512)
 

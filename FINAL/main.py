@@ -43,16 +43,24 @@ oled.text('IVF', 20, 10)
 oled.text('(3)' , 0, 20)
 oled.text('Custom Entry', 20, 20)
 oled.show()
+time.sleep(1)
 
 button1 = machine.Pin(12, machine.Pin.IN, machine.Pin.PULL_UP)
 button2= machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
+button3= machine.Pin(13, machine.Pin.IN, machine.Pin.PULL_UP)
+
+maxtemp = 0
+mintemp = 0
+maxhum = 0
+maxvib = 0
 
 fini  = 0
 while(fini == 0):
 
     print(button1.value())
     print(button2.value())
-   
+    print(button3.value())
+
     if not button1.value():
         medicine = "Insulin"
         oled.fill(0)
@@ -68,16 +76,65 @@ while(fini == 0):
         fini = 1
 
     elif not button3.value():
+        medicine = "Custom"
+        leave = 0
+        while (leave == 0):  
+            oled.fill(0)
+            oled.text('MAX TEMPERATURE:', 0, 0)
+            maxtemp = 0
+            oled.text(str(maxtemp), 64, 10)
+            oled.show()
+            time.sleep(2)
+            if not button3.value():
+                maxtemp = maxtemp + 1
+            if not button2.value():
+                maxtemp = maxtemp - 1
+            if not button1.value():
+                leave = 1
+        leave1 = 0
+        while (leave1 == 0):  
+            oled.fill(0)
+            oled.text('MIN TEMPERATURE:', 0, 0)
+            mintemp = 0
+            oled.text(str(mintemp), 64, 10)
+            oled.show()
+            if not button1.value():
+                mintemp = mintemp + 1
+            if not button2.value():
+                mintemp = mintemp - 1
+            if not button3.value():
+                leave1 = 1
+        leave2 = 0
+        while (leave2 == 0):  
+            oled.fill(0)
+            oled.text('MAX HUMIDITY:', 0, 0)
+            maxhum = 0
+            oled.text(str(maxhum), 64, 10)
+            oled.show()
+            if not button1.value():
+                maxhum = maxhum + 1
+            if not button2.value():
+                maxhum = maxhum - 1
+            if not button3.value():
+                leave2 = 1
+        leave3 = 0
+        while (leave3 == 0):  
+            oled.fill(0)
+            oled.text('MAX VIBRATION:', 0, 0)
+            maxvib = 0
+            oled.text(str(maxvib), 64, 10)
+            oled.show()
+            if not button1.value():
+                maxvib = maxvib + 1
+            if not button2.value():
+                maxvib = maxvib - 1
+            if not button3.value():
+                leave3 = 1
         oled.fill(0)
-        oled.text('ENTER TEMPERATURE', 0, 0)
-oled.text('Insulin', 20, 0)
-oled.text('(2)', 0, 10)
-oled.text('IVF', 20, 10)
-oled.text('(3)' , 0, 20)
-oled.text('Custom Entry', 20, 20)
-oled.show()
-        
+        oled.text('SELECTION SAVED', 0, 0)
+        oled.show()
 
+        fini = 1
     time.sleep(0.5)
 
 # Instantiate Sensors
@@ -131,16 +188,16 @@ while True:
         'Temperature': temp,
         'Humidity': humid,
         'Stemp': stemp,
-        'Medicine': medicine,
+        #'Medicine': medicine,
         'x': xval,
         'y': yval,
         'z': zval,
-        'Custom': {
-            'MaxTemp': = maxtemp,
-            'MinTemp': = mintemp,
-            'MaxHum': = maxhum,
-            'MaxVib': = maxVib,
-        }
+        #'Custom': {
+         #   'MaxTemp': = maxtemp,
+          #  'MinTemp': = mintemp,
+           # 'MaxHum': = maxhum,
+            #'MaxVib': = maxVib,
+        #}
     }
 
     #Publish Dictionary as JSONs
