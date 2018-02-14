@@ -1,6 +1,5 @@
 # IoT-Product #KANYE2020 HEALTHPAK
 Embedded Systems Coursework 1
-[coldbox](https://airee.carrd.co/)
 
 ![healhpaklogo](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPakLogoCut.png)
 
