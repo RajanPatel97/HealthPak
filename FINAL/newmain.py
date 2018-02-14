@@ -17,6 +17,15 @@ p15 = machine.Pin(15)
 pwm15 = machine.PWM(p15)
 
 
+p0 = machine.Pin(0)
+pwm0 = machine.PWM(p0)
+p5 = machine.Pin(5)
+pwm5 = machine.PWM(p5)
+
+p2 = machine.Pin(2)
+pwm2 = machine.PWM(p2)
+
+
 #OUTPUT GREEN
 pwm12.freq(50) 
 pwm12.duty(0)
@@ -24,6 +33,12 @@ pwm13.freq(50)
 pwm13.duty(1023)
 pwm14.freq(50) 
 pwm14.duty(1023)
+pwm5.freq(50) 
+pwm5.duty(0)
+pwm0.freq(50) 
+pwm0.duty(1023)
+pwm2.freq(50) 
+pwm2.duty(1023)
 
 #Connect to WIFI
 ap_if = network.WLAN(network.AP_IF)
@@ -50,20 +65,34 @@ def sub_cb(topic, msg):
         realy = parsed["Sensor Readings"]["y"]
         realz = parsed["Sensor Readings"]["z"]
         if ((realtemp > maxtemp) or (realtemp < mintemp)):
+            pwm5.freq(50) 
+            pwm5.duty(1023)
+            pwm0.freq(50) 
+            pwm0.duty(1023)
+            pwm2.freq(50) 
+            pwm2.duty(0)
+        else:
+            pwm5.freq(50) 
+            pwm5.duty(0)
+            pwm0.freq(50) 
+            pwm0.duty(1023)
+            pwm2.freq(50) 
+            pwm2.duty(1023)
+        if(realhum > maxhum):
             pwm12.freq(50) 
             pwm12.duty(1023)
             pwm13.freq(50) 
             pwm13.duty(1023)
             pwm14.freq(50) 
             pwm14.duty(0)
-        elif(realhum > maxhum):
+        else:
             pwm12.freq(50) 
-            pwm12.duty(1023)
+            pwm12.duty(0)
             pwm13.freq(50) 
             pwm13.duty(1023)
             pwm14.freq(50) 
-            pwm14.duty(0)
-        elif(realx > 2000):
+            pwm14.duty(1023)
+        if(realx > 2000):
             pwm15.freq(587) 
             pwm15.duty(512)
             time.sleep(0.4)
@@ -105,14 +134,7 @@ def sub_cb(topic, msg):
             time.sleep(0.4)
 
             pwm15.duty(0)
-        else:
-            pwm12.freq(50) 
-            pwm12.duty(0)
-            pwm13.freq(50) 
-            pwm13.duty(1023)
-            pwm14.freq(50) 
-            pwm14.duty(1023)
-
+       
             
     elif (parsed["Sensor Readings"]["Medicine"] == "IVF"):
         maxtemp = Medicine.IVF.MaxTemp()
@@ -125,20 +147,20 @@ def sub_cb(topic, msg):
         realy = parsed["Sensor Readings"]["y"]
         realz = parsed["Sensor Readings"]["z"]
         if ((realtemp > maxtemp) or (realtemp < mintemp)):
+            pwm5.freq(50) 
+            pwm5.duty(1023)
+            pwm0.freq(50) 
+            pwm0.duty(1023)
+            pwm2.freq(50) 
+            pwm2.duty(0)
+        if(realhum > maxhum):
             pwm12.freq(50) 
             pwm12.duty(1023)
             pwm13.freq(50) 
             pwm13.duty(1023)
             pwm14.freq(50) 
             pwm14.duty(0)
-        elif(realhum > maxhum):
-            pwm12.freq(50) 
-            pwm12.duty(1023)
-            pwm13.freq(50) 
-            pwm13.duty(1023)
-            pwm14.freq(50) 
-            pwm14.duty(0)
-        elif(realx > 2000):
+        if(realx > 2000):
             pwm15.freq(587) 
             pwm15.duty(512)
             time.sleep(0.4)
@@ -187,6 +209,13 @@ def sub_cb(topic, msg):
             pwm13.duty(1023)
             pwm14.freq(50) 
             pwm14.duty(1023)
+            pwm5.freq(50) 
+            pwm5.duty(0)
+            pwm0.freq(50) 
+            pwm0.duty(1023)
+            pwm2.freq(50) 
+            pwm2.duty(1023)
+
 
             
 def main(server="192.168.0.10"):
