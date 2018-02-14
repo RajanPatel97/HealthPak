@@ -4,6 +4,8 @@ import micropython
 import time
 from umqtt.simple import MQTTClient
 import Medicine
+import ujson
+
 
 p12 = machine.Pin(12)
 pwm12 = machine.PWM(p12)
@@ -13,6 +15,15 @@ p14 = machine.Pin(14)
 pwm14 = machine.PWM(p14)
 p15 = machine.Pin(15)
 pwm15 = machine.PWM(p15)
+
+
+#OUTPUT GREEN
+pwm12.freq(50) 
+pwm12.duty(0)
+pwm13.freq(50) 
+pwm13.duty(1023)
+pwm14.freq(50) 
+pwm14.duty(1023)
 
 #Connect to WIFI
 ap_if = network.WLAN(network.AP_IF)
@@ -24,17 +35,11 @@ while (not sta_if.isconnected()):
     pass
 print('connected')
 
-realx = 0
-realy = 600
-realz = 16000
-
 def sub_cb(topic, msg):
-    print((topic, msg))
-    parsed = json.loads(msg.payload)
+    #print((topic, msg))
+    parsed = ujson.loads(msg)
+    print(str(parsed))
     if (parsed["Sensor Readings"]["Medicine"] == "Insulin"):
-        oldx = realx
-        oldy = realy
-        oldz = realz
         maxtemp = Medicine.Insulin.MaxTemp()
         mintemp = Medicine.Insulin.MinTemp()
         maxhum = Medicine.Insulin.MaxHum()
@@ -42,22 +47,74 @@ def sub_cb(topic, msg):
         realtemp = parsed["Sensor Readings"]["Temperature"]
         realhum = parsed["Sensor Readings"]["Humidity"]
         realx = parsed["Sensor Readings"]["x"]
-        realx = parsed["Sensor Readings"]["y"]
-        realx = parsed["Sensor Readings"]["z"]
+        realy = parsed["Sensor Readings"]["y"]
+        realz = parsed["Sensor Readings"]["z"]
         if ((realtemp > maxtemp) or (realtemp < mintemp)):
-            pwm12.freq(500)
-            pwm12.duty(512)
-        if (realhum > maxhum):
-            pwm13.freq(500)
-            pwm13.duty(0)
-        if ((realx > (oldx + 250)) or (realy > (oldy + 500)) or (realz > (oldz + 1000)))
+            pwm12.freq(50) 
+            pwm12.duty(1023)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(0)
+        elif(realhum > maxhum):
+            pwm12.freq(50) 
+            pwm12.duty(1023)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(0)
+        elif(realx > 2000):
             pwm15.freq(587) 
             pwm15.duty(512)
+            time.sleep(0.4)
+                
+            pwm15.freq(698)
+            time.sleep(0.15)
+                
+            pwm15.freq(880)
+            time.sleep(0.15)
+                
+            pwm15.freq(698)
+            time.sleep(0.15)
+                
+            pwm15.freq(784)
+            time.sleep(0.4)
+                
+            pwm15.freq(880)
+            time.sleep(0.15)
+                
+            pwm15.freq(784)
+            time.sleep(0.15)
+
+            pwm15.freq(698)
+            time.sleep(0.15)
+
+            pwm15.freq(659)
+            time.sleep(0.4)
+
+            pwm15.freq(587)
+            time.sleep(0.15)
+
+            pwm15.freq(523)
+            time.sleep(0.15)
+
+            pwm15.freq(440)
+            time.sleep(0.15)
+
+            pwm15.freq(587)
+            time.sleep(0.4)
+
+            pwm15.duty(0)
+        else:
+            pwm12.freq(50) 
+            pwm12.duty(0)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(1023)
+
             
     elif (parsed["Sensor Readings"]["Medicine"] == "IVF"):
-        oldx = realx
-        oldy = realy
-        oldz = realz
         maxtemp = Medicine.IVF.MaxTemp()
         mintemp = Medicine.IVF.MinTemp()
         maxhum = Medicine.IVF.MaxHum()
@@ -65,25 +122,78 @@ def sub_cb(topic, msg):
         realtemp = parsed["Sensor Readings"]["Temperature"]
         realhum = parsed["Sensor Readings"]["Humidity"]
         realx = parsed["Sensor Readings"]["x"]
-        realx = parsed["Sensor Readings"]["y"]
-        realx = parsed["Sensor Readings"]["z"]
+        realy = parsed["Sensor Readings"]["y"]
+        realz = parsed["Sensor Readings"]["z"]
         if ((realtemp > maxtemp) or (realtemp < mintemp)):
-            pwm12.freq(500)
-            pwm12.duty(512)
-        if (realhum > maxhum):
-            pwm13.freq(500)
-            pwm13.duty(0)
-       if ((realx > (oldx + 250)) or (realy > (oldy + 500)) or (realz > (oldz + 1000)))
+            pwm12.freq(50) 
+            pwm12.duty(1023)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(0)
+        elif(realhum > maxhum):
+            pwm12.freq(50) 
+            pwm12.duty(1023)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(0)
+        elif(realx > 2000):
             pwm15.freq(587) 
             pwm15.duty(512)
-        
-    
+            time.sleep(0.4)
+                
+            pwm15.freq(698)
+            time.sleep(0.15)
+                
+            pwm15.freq(880)
+            time.sleep(0.15)
+                
+            pwm15.freq(698)
+            time.sleep(0.15)
+                
+            pwm15.freq(784)
+            time.sleep(0.4)
+                
+            pwm15.freq(880)
+            time.sleep(0.15)
+                
+            pwm15.freq(784)
+            time.sleep(0.15)
 
+            pwm15.freq(698)
+            time.sleep(0.15)
+
+            pwm15.freq(659)
+            time.sleep(0.4)
+
+            pwm15.freq(587)
+            time.sleep(0.15)
+
+            pwm15.freq(523)
+            time.sleep(0.15)
+
+            pwm15.freq(440)
+            time.sleep(0.15)
+
+            pwm15.freq(587)
+            time.sleep(0.4)
+
+            pwm15.duty(0)
+        else:
+            pwm12.freq(50) 
+            pwm12.duty(0)
+            pwm13.freq(50) 
+            pwm13.duty(1023)
+            pwm14.freq(50) 
+            pwm14.duty(1023)
+
+            
 def main(server="192.168.0.10"):
     c = MQTTClient("umqtt_client", server)
     c.set_callback(sub_cb)
     c.connect()
-    c.subscribe(b"esys/KANYE2020/#")
+    c.subscribe(b"esys/KANYE2020/yeezy")
     while True:
         if True:
             # Blocking wait for message
@@ -98,15 +208,6 @@ def main(server="192.168.0.10"):
     c.disconnect()
 
 #startuptune guest dj Big Patrick
-pwm12.freq(500)
-pwm12.duty(512)
-
-pwm13.freq(500)
-pwm13.duty(0)
-
-pwm14.freq(500)
-pwm14.duty(0)
-
 pwm15.freq(587) 
 pwm15.duty(512)
 time.sleep(0.4)

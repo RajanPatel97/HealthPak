@@ -5,7 +5,7 @@ class Insulin:
         def MinTemp():
                 return 20
         def MaxHum():
-                return 30
+                return 35
         def MaxVib():
                 return 250
 
@@ -16,7 +16,7 @@ class IVF:
         def MinTemp():
                 return 20
         def MaxHum():
-                return 30
+                return 35
         def MaxVib():
                 return 250
                 

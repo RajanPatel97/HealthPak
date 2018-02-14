@@ -5,7 +5,7 @@ import network
 import ssd1306
 import machine
 import micropython
-import Temp007
+import Tmp007
 import Si7021
 import LIS3DH
 
@@ -76,21 +76,30 @@ while(fini == 0):
         fini = 1
 
     elif not button3.value():
+        time.sleep(5)
         medicine = "Custom"
         leave = 0
+        oled.fill(0)
+        oled.text('MAX TEMPERATURE:', 0, 0)
+        maxtemp = 0
+        oled.text(str(maxtemp), 64, 10)
+        oled.show()
+        time.sleep(2)
+        print(button1.value())
+        print(button2.value())
+        print(button3.value())
         while (leave == 0):  
-            oled.fill(0)
-            oled.text('MAX TEMPERATURE:', 0, 0)
-            maxtemp = 0
-            oled.text(str(maxtemp), 64, 10)
-            oled.show()
-            time.sleep(2)
-            if not button3.value():
+            if not button1.value():
                 maxtemp = maxtemp + 1
             if not button2.value():
                 maxtemp = maxtemp - 1
-            if not button1.value():
+            if not button3.value():
                 leave = 1
+            oled.fill(0)
+            oled.text('MAX TEMPERATURE:', 0, 0)
+            oled.text(str(maxtemp), 64, 10)
+            oled.show()
+            time.sleep(2)
         leave1 = 0
         while (leave1 == 0):  
             oled.fill(0)
@@ -138,7 +147,7 @@ while(fini == 0):
     time.sleep(0.5)
 
 # Instantiate Sensors
-tempSensor = Temp007.Temp007(i2c, TEMP007ADR)
+tempSensor = Tmp007.TMP007(i2c, TEMP007ADR)
 si7021Sensor = Si7021.Si7021(i2c, SI7021ADR)
 lis3dhSensor = LIS3DH.lis3dh(i2c, LIS3DHADR)
 
@@ -178,6 +187,7 @@ while True:
     print("Humidity(%):", humid)
     print("Time(s):", timestamp)
     print("STemp:", sstemp)
+    print("Medicine:", medicine)
     print("X:", xval)
     print("Y:", yval)
     print("Z:", zval)
@@ -188,7 +198,7 @@ while True:
         'Temperature': temp,
         'Humidity': humid,
         'Stemp': stemp,
-        #'Medicine': medicine,
+        'Medicine': medicine,
         'x': xval,
         'y': yval,
         'z': zval,
