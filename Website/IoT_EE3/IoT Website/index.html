@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>IoT: ColdBox</title>
+    <title>IoT: HealthPak</title>
     <head>
 
 
@@ -28,6 +28,8 @@
     <!-- Custom styles for this template -->
     <link href="css/IoT.css" rel="stylesheet">
 
+    <!--<meta http-equiv="refresh" content="60" >-->
+
 
   </head>
 
@@ -36,7 +38,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">ColdBox</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">HealthPak</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,13 +72,13 @@
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <h1 class="text-uppercase">
-              <strong>The smart cold box</strong>
+              <strong>HealthPak</strong>
             </h1>
             <hr>
           </div>
           <div class="col-lg-8 mx-auto">
-            <p class="text-faded mb-5">ColdBox is a tool for suppliers and consumers to accurately monitor the transport environment of sensitive goods.</p>
-            <a class="btn btn-primary btn-xl portfolio-link" href="#portfolioModal2" data-toggle="modal">Why ColdBox?</a>
+            <p class="text-faded mb-5">HealthPak is a tool for suppliers and consumers to accurately monitor the transport environment of sensitive goods.</p>
+            <a class="btn btn-primary btn-xl portfolio-link" href="#portfolioModal2" data-toggle="modal">Why HealthPak?</a>
           </div>
         </div>
       </div>
@@ -88,7 +90,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="section-heading text-white">We've got what you need!</h2>
             <hr class="light my-4">
-            <p class="text-faded2 mb-4">By continoulsy measuring ambient conditions using a collection of sensors, our complete cold box monitoring device shares data online, allowing the user to easily access this information at any given time and warning them if anything goes wrong.</p>
+            <p class="text-faded2 mb-4">By continoulsy measuring ambient conditions using a collection of sensors, our complete cooling box monitoring device shares data online, allowing the user to easily access this information at any given time and warning them if anything goes wrong.</p>
             <a class="btn btn-light btn-xl portfolio-link" href="#portfolioModal1" data-toggle="modal">More details</a>
           </div>
         </div>
@@ -142,7 +144,7 @@
       <div class="container-fluid p-0">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">The team behind ColdBox</h2>
+            <h2 class="section-heading">The team behind HealthPak</h2>
             <hr class="my-4">
           </div>
         </div>
@@ -186,8 +188,8 @@
             </a>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <a class="portfolio-box" href="img/team/eliot.jpeg">
-              <img class="img-fluid" src="img/team/eliot.jpeg" alt="">
+            <a class="portfolio-box" href="img/team/eliot.jpg">
+              <img class="img-fluid" src="img/team/eliot.jpg" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-name">
@@ -205,8 +207,8 @@
             </a>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <a class="portfolio-box" href="img/team/3.jpg">
-              <img class="img-fluid" src="img/team/3.jpg" alt="">
+            <a class="portfolio-box" href="img/team/mik.jpg">
+              <img class="img-fluid" src="img/team/mik.jpg" alt="">
               <div class="portfolio-box-caption">
                 <div class="portfolio-box-caption-content">
                   <div class="project-name">
@@ -229,94 +231,105 @@
     </section>
 
     <section id="graphs">
-      <div class="graph-container">
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading">Check out our self updating graphs</h2>
             <hr class="my-4">
-            <canvas id="myChart1" width="200" height="50"></canvas>
-            <canvas id="myChart2" width="200" height="50"></canvas>
-            <canvas id="myChart3" width="200" height="50"></canvas>
           </div>
         </div>
-
+      <div>
+          <canvas id="myChart1" width= "200px" height="70px"></canvas>
+          <br>
+          <br>
+          <canvas id="myChart2" width="200px" height="70px"></canvas>
       </div>
 
-    </section>
+        <script src="http://localhost:8000/Chart.js"></script>
+        <script src="http://localhost:8000/jquery.js"></script>
+        
+        <script>
+          
+          $.getJSON("http://localhost:8000/measures.json", function (json) {
+            var temp = json.map(function(item) {
+              return item.Temperature;
+            });
 
-    <section id='line-chart'>
+            var humid = json.map(function(item) {
+              return item.Humidity;
+            });
 
-          <script src="http://localhost:8000/Chart.js"></script>
-          <script src="http://localhost:8000/jquery.js"></script>
-          <script>
-   $.getJSON("http://localhost:8000/measures.json", function (json) {
-  var temp = json.map(function(item) {
-    return item.Temperature;
-  });
+            var stemp = json.map(function(item) {
+              return item.Stemp;
+            });
 
-  var humid = json.map(function(item) {
-    return item.Humidity;
-  });
+            var timestamp = json.map(function(item) {
+              return item.Time;
+            });
 
-  var stemp = json.map(function(item) {
-    return item.Stemp;
-  });
+            new Chart(document.getElementById("myChart1"),{
+              type: 'line',
+              data: {
+              labels: timestamp,
+              datasets: [
+              {
+                label: "Temperature(ºC)",
+                fillColor: "#rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: temp,
+              },
+              {
+                label: "Surface temperature (ºC)",
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,0.8)",
+                highlightFill: "rgba(151,187,205,0.75)",
+                highlightStroke: "rgba(151,187,205,1)",
+                data: stemp,
+            }
+              ]
+              },
+              options:{
+                scales:{
+                  xAxes: [{
+                    display: false
+                  }]
+                }
+              }
+            });
 
-  var timestamp = json.map(function(item) {
-    return item.Time;
-  });
+            new Chart(document.getElementById("myChart2"),{
+              type: 'line',
+              data: {
+              labels: timestamp,
+              datasets: [
+              {
+                label: "Humidity (%)",
+                fillColor: "#rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: humid,
+              },
+              ]
+              },
+              options:{
+                scales:{
+                  xAxes: [{
+                    display: false
+                  }]
+                }
+              }
+            });
+          });
 
-  new Chart(document.getElementById("myChart1"),{
-    type: 'line',
-    data: {
-    labels: timestamp,
-    datasets: [
-    {
-      label: "Temperature(ºC)",
-      fillColor: "#rgba(220,220,220,0.5)",
-      strokeColor: "rgba(220,220,220,0.8)",
-      highlightFill: "rgba(220,220,220,0.75)",
-      highlightStroke: "rgba(220,220,220,1)",
-      data: temp,
-    },
-    {
-      label: "Surface temperature (ºC)",
-      fillColor: "rgba(151,187,205,0.5)",
-      strokeColor: "rgba(151,187,205,0.8)",
-      highlightFill: "rgba(151,187,205,0.75)",
-      highlightStroke: "rgba(151,187,205,1)",
-      data: stemp,
-  }
-    ]
-    }
-  });
-
-  new Chart(document.getElementById("myChart2"),{
-    type: 'line',
-    data: {
-    labels: timestamp,
-    datasets: [
-    {
-      label: "Humidity (%)",
-      fillColor: "#rgba(220,220,220,0.5)",
-      strokeColor: "rgba(220,220,220,0.8)",
-      highlightFill: "rgba(220,220,220,0.75)",
-      highlightStroke: "rgba(220,220,220,1)",
-      data: humid,
-    },
-    ]
-    }
-  });
-});
-
-</script>
-
-</section>
+        </script>
+  </section>
 
     <section id="app">
         <div class="row">
             <div class="col-lg-12 text-center">
-              <h2 class="section-heading">Stay connected with the ColdBox App</h2>
+              <h2 class="section-heading">Stay connected with the HealthPak App</h2>
               <hr class="my-4">
             </div>
           </div>
@@ -366,10 +379,10 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>More details</h2>
-                                <p class="item-intro text-muted">What's inside of ColdBox?</p>
+                                <p class="item-intro text-muted">What's inside of HealthPak?</p>
                                 <img class="img-fluid d-block mx-auto" src="img/sys_diag.jpg" alt="">
                                 <h2>General information</h2>
-                                <p>ColdBox uses 3 different sensors to continuously measure the temperature, humidity and vibrations inside of the smart cooling box. The sensors communicate with a WiFi chip in order to transmit the data they have collected to a Broker using Message Queuing Telemetry Transport (MQTT) communication. Any device that requires data from the sensors can subscribe to that Broker through a certain channel making it available to any online interface. As well as our website and potential App, we also have a User Interface consisting of a Light Emitting Diode and a Buzzer subscribing to the Broker through its own WiFi chip. This UI provides an easier and quicker way to monitor ColdBox's parameters as it changes color and makes sound when anything goes wrong.</p>
+                                <p>HealthPak uses 3 different sensors to continuously measure the temperature, humidity and vibrations inside of the smart cooling box. The sensors communicate with a WiFi chip in order to transmit the data they have collected to a Broker using Message Queuing Telemetry Transport (MQTT) communication. Any device that requires data from the sensors can subscribe to that Broker through a certain channel making it available to any online interface. As well as our website and potential App, we also have a User Interface consisting of a Light Emitting Diode and a Buzzer subscribing to the Broker through its own WiFi chip. This UI provides an easier and quicker way to monitor HealthPak's parameters as it changes color and makes sound when anything goes wrong.</p>
                                 <h2>Technical specifications</h2>
                                 <p>
                                   <h3>ESP8266</h3>
@@ -387,7 +400,8 @@
                                     <h3>LIS3DH</h3>
                                 </p>
                                 <p>The LIS3DH is an accelerometer. Since some goods are fragile or sensitive to sudden movements, our design contains a sensor capable of measuring acceleration.</p>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                                <img class="img-fluid d-block mx-auto" src="img/coolbox.jpg" alt="">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Return to main page</button>
                             </div>
                         </div>
                     </div>
@@ -412,10 +426,40 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>Motivation</h2>
-                                <p class="item-intro text-muted">Why is ColdBox needed?</p>
+                                <p class="item-intro text-muted">Why is HealthPak needed?</p>
                                 <img class="img-fluid d-block mx-auto" src="img/coolbox.jpg" alt="">
                                 <p>With the technological advances in goods shipment and delivery, we are now able to track the location of our purchases at any given time. In the case of sensitive goods that are stored in refrigerators such as medicine, organs or even some foods, however, the manufacturer, retailer or consumer might be interested in the conditions in which these goods were stored during transportation. Vaccines or organs, for instance, require an ambient temperature of 2 to 8ºC. If the cooling box's temperature is outside these bounds, the vaccine loses effectiveness. This can cause the consumer to lose trust in the product and cost a lot of money to the manufacturer. CoolBox measures this data and makes it available for anyone involved with the shipped goods enhancing customer relationships, allowing retailers to discard any wrongly stored goods and providing intel to manufacturers on any reoccurring storage problems.</p>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                                <div class="row no-gutters popup-gallery">
+                                  <div class="col-lg-6 col-sm-6">
+                                    <p><h3>Current Alternatives</h3></p>
+                                    <ul style="list-style-type:none">
+                                      <li><span style="color : red;">✗</span> For Organs - Only a fraction of succesful organ transplants due to picnic-cooler method transportation. Max 4h of preservation.</li>
+                                      <li><span style="color : red;">✗</span> For IVF - numerous companies, such as IVFcouriers and KYNISI, offer transport but absolutely no updates on ambient conditions or monitoring services.</li>
+                                      <li><span style="color : red;">✗</span> For Vaccines - Literally use an outdated paper tracking-sheet.</li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-lg-6 col-sm-6">
+                                    <p><h3>HealthPak Solutions</h3></p>
+                                    <ul style="list-style-type:none">
+                                      <li><span style="color : green;">✓</span> Precise real-time monitoring of temperature and humidity.</li>
+                                      <li><span style="color : green;">✓</span> Accelerometer sensor used to track potential damage to item being transported.</li>
+                                      <li><span style="color : green;">✓</span> Interactive and easy-to-use UI with audio-visual feedback.</li>
+                                      <li><span style="color : green;">✓</span> Complete and transparent logging of transport history.</li>
+                                    </ul>
+                                  </div>
+                                  <div class="col-lg-6 col-sm-6">
+                                      <p><h3>Cost Breakdown</h3></p>
+                                      <img class="img-fluid" src="img/webpie.jpg" alt="">
+                                  </div>
+                                  <div class="col-lg-6 col-sm-6">
+                                      <p><h3>The Market</h3></p>
+                                      <ul style="list-style-type:none">
+                                      <li>Closest alternative costs £320 but offers no live tracking</li><br>
+                                      <li>No singlular product that monitors humidity, temperature and accelerometer in feedback loop</li><br>
+                                      <li>Total manufacturing cost: £48.20. Our selling price: £100</li></ul>
+                                  </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Return to main page</button>
                             </div>
                         </div>
                     </div>
