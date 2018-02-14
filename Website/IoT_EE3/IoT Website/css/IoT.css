@@ -331,13 +331,11 @@ header.masthead p {
 .copyright{
     padding-top: 100px;
 }
-.graph-container{
-    height: 40px;
-  }
 #myChart{
   margin-left: 30px;
   margin-right: 30px;
 }
+
 .app_page{
   background-image: url("../img/IoT_app.jpg");
   width: 100%;
