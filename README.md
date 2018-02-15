@@ -4,7 +4,7 @@ Embedded Systems Coursework 1
 ![healhpaklogo](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPakLogoCut.png)
 
 ## Product Overview
-Smart cold box that monitors the enviroment inside a cold box allowing safe and intelligent storage and transport of temperature and vibration sensitive goods such as medicines, organs, vaccines and others. The cold box measures the temperature and humidity of the box, surface temperature of the good and if it has been subject to vibration. The cold box will feed back live characteristics and it will alert you to a seperate module if the thresholds have been exceeded. 
+Healthpak monitors the enviroment inside a cold box allowing safe and intelligent storage and transport of temperature and vibration sensitive goods such as medicines, organs, vaccines and others. The Healthpak measures the temperature and humidity of the box, surface temperature of the good and if it has been subject to vibration. The Healthpak will feed back live characteristics and it will alert you to a seperate module if the thresholds have been exceeded. 
 
 ## System Diagram
 ![Coolerbox](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPak.jpg)
@@ -32,16 +32,20 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 
 1. the "IoT_Website" folder and all its contents.
 
-*note: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.*
+*ote: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.*
 
 2. To display the website without the "Graph" section just open the "index.html" file from the "IoT_Website" folder.
 
 3. To display the graphs, create a local host for the "IoT_Website" with following instructions (only for mac):
     1. open Terminal
-    2. go to folder containing website using: 'cd'
+    2. go to folder containing website using: `cd`
     3. type `python3 -m http.server`
-    4. Go to browser and type `localhost8000`
+    4. Go to browser and type `localhost:8000`
     5. Select `IoT_Website`
+    
+#### To change the location of the JSON used for graph updating
+- Go to this line in the Website code and change the file it refers to, or call your JSON dump measures.json and ensure it replaces the file currently in folder.
+[JSONLocation](https://github.com/RajanPatel97/IoT-Product/blob/master/Supplementary%20Documentation/Screen%20Shot%202018-02-15%20at%2011.29.15.png)
 
 
 ## Software
