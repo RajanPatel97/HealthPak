@@ -32,7 +32,7 @@ Healthpak monitors the enviroment inside a cold box allowing safe and intelligen
 
 1. the "IoT_Website" folder and all its contents.
 
-*ote: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.*
+*Note: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.*
 
 2. To display the website without the "Graph" section just open the "index.html" file from the "IoT_Website" folder.
 
@@ -45,7 +45,7 @@ Healthpak monitors the enviroment inside a cold box allowing safe and intelligen
     
 #### To change the location of the JSON used for graph updating
 - Go to this line in the Website code and change the file it refers to, or call your JSON dump measures.json and ensure it replaces the file currently in folder.
-[JSONLocation](https://github.com/RajanPatel97/IoT-Product/blob/master/Supplementary%20Documentation/Screen%20Shot%202018-02-15%20at%2011.29.15.png)
+![JSONLocation](https://github.com/RajanPatel97/IoT-Product/blob/master/Supplementary%20Documentation/Screen%20Shot%202018-02-15%20at%2011.29.15.png)
 
 
 ## Software
