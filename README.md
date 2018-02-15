@@ -1,5 +1,5 @@
 # IoT-Product #KANYE2020 HEALTHPAK
-Embedded Systems Coursework 1
+Embedded Systems Coursework 1 - ALL CODE IS FULLY TESTED AND WAS SUCCESSFULLY DEMONSTRATED IN DEMO SESSION.
 
 ![healhpaklogo](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPakLogoCut.png)
 
