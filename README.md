@@ -30,18 +30,18 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 
 ### Website Instructions
 
-Download the "IoT_Website" folder and all its contents.
+1. the "IoT_Website" folder and all its contents.
 
-note: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.
+*note: The website can only display the "Graphs" section if it is launched from a local host because the .JSON files containing the graph data can't be read if the file is stored locally.*
 
-To display the website without the "Graph" section just open the "index.html" file from the "IoT_Website" folder.
+2.a) To display the website without the "Graph" section just open the "index.html" file from the "IoT_Website" folder.
 
-To display the graphs, create a local host for the "IoT_Website" with following instructions (only for mac):
+2.b) To display the graphs, create a local host for the "IoT_Website" with following instructions (only for mac):
   1. open Terminal
   2. go to folder containing website using: 'cd'
-  3. type 'python3 -m http.server'
-  4. Go to browser and type 'localhost8000'
-  5. Select 'IoT_Website'
+  3. type `python3 -m http.server`
+  4. Go to browser and type `localhost8000`
+  5. Select `IoT_Website`
 
 
 ## Software
