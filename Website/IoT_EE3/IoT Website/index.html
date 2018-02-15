@@ -384,7 +384,7 @@
                                 <h2>General information</h2>
                                 <p>HealthPak uses 3 different sensors to continuously measure the temperature, humidity and vibrations inside of the smart cooling box. The sensors communicate with a WiFi chip in order to transmit the data they have collected to a Broker using Message Queuing Telemetry Transport (MQTT) communication. Any device that requires data from the sensors can subscribe to that Broker through a certain channel making it available to any online interface. As well as our website and potential App, we also have a User Interface consisting of a Light Emitting Diode and a Buzzer subscribing to the Broker through its own WiFi chip. This UI provides an easier and quicker way to monitor HealthPak's parameters as it changes color and makes sound when anything goes wrong.</p>
                                 <h2> Looking to the Future...</h2>
-				<p>We currently have </p>
+				<p>We currently have a seperate recieving device which has 2 RGB LED's that represent whether temperature and humidity inside the HealthPak are too high or nominal respectively. A Piezo Buzzer sounds an alarm if there is too much vibration. In the future, we aim to develop our product further by harnessing our current feedback mechanism to add heating/cooling elements, as well as a dehumidifer. We want these additons to provide a complete closed loop control system that automatically corrects any environmental differences inside the HealthPak.</p>
 				<h2>Technical specifications</h2>
                                 <p>
                                   <h3>ESP8266</h3>
@@ -393,7 +393,7 @@
                                 <p>
                                     <h3>TMP007</h3>
                                 </p>
-                                <p>The TMP007 is a surface temperature sensor. We use it to see if the temperature of the stored goods is adequate, regardless of the ambient temperature of the box.</p>
+                                <p>The TMP007 is a Thermophile sensor that measures radiated energy from an object. We use it to see if the temperature of the stored goods is adequate, regardless of the ambient temperature of the box.</p>
                                 <p>
                                     <h3>Si7021</h3>
                                 </p>
