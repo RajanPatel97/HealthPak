@@ -22,7 +22,7 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 
 1. Plug the ESP8266 modules into your computer and use `sudo ampy --PORT COM(your specific port) put main.py` and repeat for all the necessary files. *the put command just loads the file onto the ESP without running it*  If connecting to a network not used before, the SSID and Password will need to be inputted into the code manually.
 
-2. Use `sudo ampy PORT --COM(your specific port) ls` to list all the files on each ESP and ensure all the files were loaded onto the board correctly. *in-cooler ESP should have main.py, outside of cooler ESP should have Medicine, main.py*
+2. Use `sudo ampy PORT --COM(your specific port) ls` to list all the files on each ESP and ensure all the files were loaded onto the board correctly. *in-cooler ESP should have main.py, SSD1306.mpy, TMP007.py, LIS3DH.py and Si7021, and outside of cooler ESP should have Medicine.py, main.py*
 
 3. You can now reset the two boards, if everything is correct the in-cooler ESP should go to menu and the off-cooler ESP should light up and make a jingle. If it isn't working, restart it again, and if it persists reload the files onto the boards.
 
