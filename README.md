@@ -37,11 +37,11 @@ Smart cold box that monitors the enviroment inside a cold box allowing safe and 
 2. To display the website without the "Graph" section just open the "index.html" file from the "IoT_Website" folder.
 
 3. To display the graphs, create a local host for the "IoT_Website" with following instructions (only for mac):
-  1. open Terminal
-  2. go to folder containing website using: 'cd'
-  3. type `python3 -m http.server`
-  4. Go to browser and type `localhost8000`
-  5. Select `IoT_Website`
+    1. open Terminal
+    2. go to folder containing website using: 'cd'
+    3. type `python3 -m http.server`
+    4. Go to browser and type `localhost8000`
+    5. Select `IoT_Website`
 
 
 ## Software
