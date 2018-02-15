@@ -1,3 +1,7 @@
+#This is the main file for the publisher ESP8266 which automatiically runs this code on startup.
+#We have two ESP8266's for our product.
+#secmain.py is the second main file for the subscribing ESP8266.
+
 import ujson
 import time
 import utime
@@ -5,9 +9,10 @@ import network
 import ssd1306
 import machine
 import micropython
-import Tmp007
+import TMP007
 import Si7021
 import LIS3DH
+import Screen
 
 #Define Constants
 TEMP007ADR = (68)
@@ -29,37 +34,26 @@ from umqtt.simple import MQTTClient
 client = MQTTClient('machine.unique_id()','192.168.0.10')
 client.connect()
 
-#Set up I2C Pins
+#Set up I2C and OLED Pins
 from machine import Pin, I2C
 i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
 spi = machine.SPI(1, baudrate=8000000, polarity=0, phase=0)
 oled = ssd1306.SSD1306_SPI(128, 32, spi, machine.Pin(15), machine.Pin(0), machine.Pin(16))
 
-oled.fill(0)
-oled.text('(1)', 0, 0)
-oled.text('Insulin', 20, 0)
-oled.text('(2)', 0, 10)
-oled.text('IVF', 20, 10)
-oled.text('(3)' , 0, 20)
-oled.text('Custom Entry', 20, 20)
-oled.show()
+#Show OLED Menu
+Screen.Screen.menu()
 time.sleep(1)
 
+#Set up Buttons
 button1 = machine.Pin(12, machine.Pin.IN, machine.Pin.PULL_UP)
 button2= machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
 button3= machine.Pin(13, machine.Pin.IN, machine.Pin.PULL_UP)
 
-maxtemp = 0
-mintemp = 0
-maxhum = 0
-maxvib = 0
-
+#Wait for selection by user input on buttons
+#To add more medicines or organs etc, just update Medicines class file
+#You can also change code below to allow scrollable screen for more option selection
 fini  = 0
 while(fini == 0):
-
-    print(button1.value())
-    print(button2.value())
-    print(button3.value())
 
     if not button1.value():
         medicine = "Insulin"
@@ -76,82 +70,19 @@ while(fini == 0):
         fini = 1
 
     elif not button3.value():
-        time.sleep(5)
-        medicine = "Custom"
-        leave = 0
+        medicine = "Heart"
         oled.fill(0)
-        oled.text('MAX TEMPERATURE:', 0, 0)
-        maxtemp = 0
-        oled.text(str(maxtemp), 64, 10)
+        oled.text('Heart SELECTED', 0, 0)
         oled.show()
-        time.sleep(2)
-        print(button1.value())
-        print(button2.value())
-        print(button3.value())
-        while (leave == 0):  
-            if not button1.value():
-                maxtemp = maxtemp + 1
-            if not button2.value():
-                maxtemp = maxtemp - 1
-            if not button3.value():
-                leave = 1
-            oled.fill(0)
-            oled.text('MAX TEMPERATURE:', 0, 0)
-            oled.text(str(maxtemp), 64, 10)
-            oled.show()
-            time.sleep(2)
-        leave1 = 0
-        while (leave1 == 0):  
-            oled.fill(0)
-            oled.text('MIN TEMPERATURE:', 0, 0)
-            mintemp = 0
-            oled.text(str(mintemp), 64, 10)
-            oled.show()
-            if not button1.value():
-                mintemp = mintemp + 1
-            if not button2.value():
-                mintemp = mintemp - 1
-            if not button3.value():
-                leave1 = 1
-        leave2 = 0
-        while (leave2 == 0):  
-            oled.fill(0)
-            oled.text('MAX HUMIDITY:', 0, 0)
-            maxhum = 0
-            oled.text(str(maxhum), 64, 10)
-            oled.show()
-            if not button1.value():
-                maxhum = maxhum + 1
-            if not button2.value():
-                maxhum = maxhum - 1
-            if not button3.value():
-                leave2 = 1
-        leave3 = 0
-        while (leave3 == 0):  
-            oled.fill(0)
-            oled.text('MAX VIBRATION:', 0, 0)
-            maxvib = 0
-            oled.text(str(maxvib), 64, 10)
-            oled.show()
-            if not button1.value():
-                maxvib = maxvib + 1
-            if not button2.value():
-                maxvib = maxvib - 1
-            if not button3.value():
-                leave3 = 1
-        oled.fill(0)
-        oled.text('SELECTION SAVED', 0, 0)
-        oled.show()
-
         fini = 1
     time.sleep(0.5)
 
 # Instantiate Sensors
-tempSensor = Tmp007.TMP007(i2c, TEMP007ADR)
-si7021Sensor = Si7021.Si7021(i2c, SI7021ADR)
-lis3dhSensor = LIS3DH.lis3dh(i2c, LIS3DHADR)
+tempSensor = TMP007.TMP007(i2c, TEMP007ADR)  #TMP007 Thermopile Sensor
+si7021Sensor = Si7021.Si7021(i2c, SI7021ADR) #Si7021 Temp/Humidity Sensor
+lis3dhSensor = LIS3DH.lis3dh(i2c, LIS3DHADR) #LIS3DH Accelerometer
 
-Readings = {}
+Readings = {} #Initialise Dictionary
 
 while True:
 
@@ -179,7 +110,9 @@ while True:
     oled.text('Stem (C)' , 0, 20)
     oled.text(sstemp, 70, 20)
     oled.show()
-    
+
+    #Get timestamp - use preset time on board
+    #Usually initalise with current time but no connection to internet over EEEROVER
     timestamp = utime.localtime()
 
     #Output Readings to Terminal
@@ -202,15 +135,9 @@ while True:
         'x': xval,
         'y': yval,
         'z': zval,
-        #'Custom': {
-         #   'MaxTemp': = maxtemp,
-          #  'MinTemp': = mintemp,
-           # 'MaxHum': = maxhum,
-            #'MaxVib': = maxVib,
-        #}
     }
 
-    #Publish Dictionary as JSONs
+    #Publish Dictionary as JSON over MQTT
     payload = ujson.dumps(Readings)
     client.publish('esys/KANYE2020/yeezy',bytes(payload,'utf-8'))
-    time.sleep(5)
+    time.sleep(2)

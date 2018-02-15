@@ -1,3 +1,5 @@
+#This is the class file for the LIS3DH Accelerometer
+
 import machine
 import time
 from machine import Pin, I2C
@@ -19,7 +21,7 @@ CONFIG1 = 0x27
 CONFIG4 = 0x00
 
 class lis3dh:
-        # Class Constructor
+        # Class Constructor and Configuration
 	def __init__(self, i2c, i2cAddress):
 		self.i2c = i2c
 		self.i2cAddress = i2cAddress
@@ -29,7 +31,7 @@ class lis3dh:
 
         #Read x-axis Acceleration
         def xRead(self):
-                # X-Axis LSB, X-Axis MSB
+                # Get the X-Axis LSB and the X-Axis MSB
                 data0 = i2c.readfrom_mem(self.i2cAddress, OUT_X_L, 1)[0]
                 data1 = i2c.readfrom_mem(self.i2cAddress, OUT_X_H, 1)[0]
                 # Convert the data
@@ -40,7 +42,7 @@ class lis3dh:
 
         #Read y-axis Acceleration
         def yRead(self):
-                # Y-Axis LSB, Y-Axis MSB
+                #Get the Y-Axis LSB and the Y-Axis MSB
                 data0 = i2c.readfrom_mem(self.i2cAddress, OUT_Y_L, 1)[0]
                 data1 = i2c.readfrom_mem(self.i2cAddress, OUT_Y_H, 1)[0]
                 # Convert the data
@@ -51,7 +53,7 @@ class lis3dh:
 
         #Read z-axis Acceleration
         def zRead(self):
-                # Z-Axis LSB, Z-Axis MSB
+                #Get the Z-Axis LSB and the Z-Axis MSB
                 data0 = i2c.readfrom_mem(self.i2cAddress, OUT_Z_L, 1)[0]
                 data1 = i2c.readfrom_mem(self.i2cAddress, OUT_Z_H, 1)[0]
                 # Convert the data
