@@ -51,18 +51,20 @@ Healthpak monitors the enviroment inside a cold box allowing safe and intelligen
 ## Software
 * Micropython
 * Javascript
+* HTML
+* CSS
 ### Libraries
 * Si7021-A20 
 * [SSD1306](https://raw.githubusercontent.com/adafruit/micropython-adafruit-ssd1306/master/ssd1306.py)
 * Chart-JS
 * [Adafruit-MQTT](https://github.com/adafruit/Adafruit_MQTT_Library)
-* LIS3DH
-## Hardware
-* SSD1306 LCD Display Module
-* ESP8266 Microcontroller
+## Core Hardware
+* SSD1306 OLED Display Module
+* ESP8266 Microcontroller(Adafruit Huzzah Feather)
 * Si7021-A20 Temperature and Humidity Sensor 
 * TMP007 Infrared Thermopile Sensor
 * LIS3DH Accelerometer
+* 30,000mAh Battery
 * Cooler/heater (future implementation)
 ## Team
 * Mikhail Demtchenko
