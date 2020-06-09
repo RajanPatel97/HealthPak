@@ -1,12 +1,12 @@
 # IoT-Product HEALTHPAK
 
-![healhpaklogo](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPakLogoCut.png)
+![healhpaklogo](https://github.com/RajanPatel97/HealthPak/blob/master/assets/HealthPakLogoCut.png)
 
 ## Product Overview
 Healthpak monitors the enviroment inside a cold box allowing safe and intelligent storage and transport of temperature and vibration sensitive goods such as medicines, organs, vaccines and others. The Healthpak measures the temperature and humidity of the box, surface temperature of the good and if it has been subject to vibration. The Healthpak will feed back live characteristics and it will alert you to a seperate module if the thresholds have been exceeded. 
 
 ## System Diagram
-![Coolerbox](https://github.com/RajanPatel97/IoT-Product/blob/master/HealthPak.jpg)
+![Coolerbox](https://github.com/RajanPatel97/HealthPak/blob/master/assets/HealthPak.jpg)
 
 ## Instructions
 1. In the main cooler, ensure the monitoring board is strapped in at the top, and plugged into power. The device will automatically boot. If any error occurs, use the reset button on the board itself to reboot.
